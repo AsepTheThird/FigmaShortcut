@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Figma Shortcuts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0f11;
+    --bg-card: #16181c;
+    --bg-card-hover: #1c1f25;
+    --bg-secondary: #1e2128;
+    --bg-tab-active: #252930;
+    --border: #2a2d35;
+    --border-hover: #3d4250;
+    --accent: #6c8eff;
+    --accent-soft: rgba(108,142,255,0.12);
+    --accent-glow: rgba(108,142,255,0.25);
+    --text-primary: #e8eaf0;
+    --text-secondary: #8b90a0;
+    --text-muted: #555b6b;
+    --kbd-bg: #1e2128;
+    --kbd-border: #333845;
+    --kbd-text: #c8cdd8;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --font: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 2rem;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .header h1 .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+  .header p {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-left: 18px;
+  }
+
+  /* Search bar */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+  .search-wrap {
+    flex: 1;
+    position: relative;
+  }
+  .search-wrap svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 10px 12px 10px 38px;
+    font-size: 14px;
+    font-family: var(--font);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-wrap input::placeholder { color: var(--text-muted); }
+  .search-wrap input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  /* OS toggle */
+  .os-toggle {
+    display: flex;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .os-toggle button {
+    padding: 9px 18px;
+    font-size: 13.5px;
+    font-family: var(--font);
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .os-toggle button.active {
+    background: var(--bg-tab-active);
+    color: var(--text-primary);
+  }
+
+  /* Category tabs */
+  .category-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .tab {
+    padding: 7px 14px;
+    font-size: 13px;
+    font-family: var(--font);
+    font-weight: 500;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .tab:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+  }
+  .tab.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: rgba(108,142,255,0.3);
+  }
+
+  /* Count */
+  .count {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 8px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 13px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: default;
+    transition: background 0.18s, border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-soft) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 0 0 1px rgba(108,142,255,0.08);
+  }
+  .card:hover::before {
+    opacity: 1;
+  }
+  .card:hover .card-name {
+    color: #fff;
+  }
+  .card:hover kbd {
+    border-color: rgba(108,142,255,0.4);
+    background: rgba(108,142,255,0.1);
+    color: #b5c5ff;
+  }
+
+  .card-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 15px;
+    transition: background 0.18s;
+    border: 1px solid var(--border);
+  }
+  .card:hover .card-icon {
+    background: var(--accent-soft);
+    border-color: rgba(108,142,255,0.25);
+  }
+
+  .card-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .card-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.15s;
+  }
+  .card-desc {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .keys {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 170px;
+  }
+  kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-family: var(--mono);
+    font-weight: 500;
+    background: var(--kbd-bg);
+    border: 1px solid var(--kbd-border);
+    border-radius: 5px;
+    color: var(--kbd-text);
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .sep {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1><span class="dot"></span> Figma Shortcuts</h1>
+    <p>Referensi keyboard shortcut untuk Figma</p>
+  </div>
+
+  <div class="search-bar">
+    <div class="search-wrap">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M11 11L13.5 13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <input type="text" id="search" placeholder="Cari shortcut..." oninput="render()" />
+    </div>
+    <div class="os-toggle">
+      <button class="active" onclick="setOs('mac',this)">Mac</button>
+      <button onclick="setOs('win',this)">Windows</button>
+    </div>
+  </div>
+
+  <div class="category-tabs" id="tabs"></div>
+  <div class="count" id="count"></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+const catIcons = {
+  Tools: "🛠",
+  Edit: "✏️",
+  View: "👁",
+  Arrange: "⚡",
+  Components: "🧩",
+  Text: "T",
+  Misc: "⌨️",
+};
+
+const data = [
+  { cat: "Tools", name: "Move tool", desc: "Pilih & pindahkan elemen", mac: ["V"], win: ["V"] },
+  { cat: "Tools", name: "Frame tool", desc: "Buat frame baru", mac: ["F"], win: ["F"] },
+  { cat: "Tools", name: "Rectangle", desc: "Buat persegi panjang", mac: ["R"], win: ["R"] },
+  { cat: "Tools", name: "Ellipse", desc: "Buat lingkaran/elips", mac: ["O"], win: ["O"] },
+  { cat: "Tools", name: "Line", desc: "Buat garis lurus", mac: ["L"], win: ["L"] },
+  { cat: "Tools", name: "Arrow", desc: "Buat panah", mac: ["⇧","L"], win: ["Shift","L"] },
+  { cat: "Tools", name: "Text tool", desc: "Tambah teks", mac: ["T"], win: ["T"] },
+  { cat: "Tools", name: "Pen tool", desc: "Buat vector path", mac: ["P"], win: ["P"] },
+  { cat: "Tools", name: "Pencil / freehand", desc: "Gambar bebas", mac: ["⇧","P"], win: ["Shift","P"] },
+  { cat: "Tools", name: "Image / place", desc: "Insert gambar ke canvas", mac: ["⌘","⇧","K"], win: ["Ctrl","Shift","K"] },
+  { cat: "Tools", name: "Slice tool", desc: "Buat area export", mac: ["S"], win: ["S"] },
+  { cat: "Tools", name: "Comment tool", desc: "Tambah komentar", mac: ["C"], win: ["C"] },
+  { cat: "Tools", name: "Hand / pan", desc: "Geser canvas tanpa klik elemen", mac: ["H"], win: ["H"] },
+  { cat: "Tools", name: "Scale tool", desc: "Scale elemen proporsional", mac: ["K"], win: ["K"] },
+
+  { cat: "Edit", name: "Undo", desc: "Batalkan aksi terakhir", mac: ["⌘","Z"], win: ["Ctrl","Z"] },
+  { cat: "Edit", name: "Redo", desc: "Ulangi aksi yang dibatalkan", mac: ["⌘","⇧","Z"], win: ["Ctrl","Shift","Z"] },
+  { cat: "Edit", name: "Copy", desc: "Salin elemen", mac: ["⌘","C"], win: ["Ctrl","C"] },
+  { cat: "Edit", name: "Cut", desc: "Potong elemen", mac: ["⌘","X"], win: ["Ctrl","X"] },
+  { cat: "Edit", name: "Paste", desc: "Tempel elemen", mac: ["⌘","V"], win: ["Ctrl","V"] },
+  { cat: "Edit", name: "Paste in place", desc: "Tempel di posisi yang sama", mac: ["⌘","⇧","V"], win: ["Ctrl","Shift","V"] },
+  { cat: "Edit", name: "Duplicate", desc: "Duplikat elemen di tempat", mac: ["⌘","D"], win: ["Ctrl","D"] },
+  { cat: "Edit", name: "Delete", desc: "Hapus elemen terpilih", mac: ["⌫"], win: ["Delete"] },
+  { cat: "Edit", name: "Select all", desc: "Pilih semua elemen di frame/canvas", mac: ["⌘","A"], win: ["Ctrl","A"] },
+  { cat: "Edit", name: "Deselect all", desc: "Batal pilih semua", mac: ["Esc"], win: ["Esc"] },
+  { cat: "Edit", name: "Rename layer", desc: "Ganti nama layer yang dipilih", mac: ["⌘","R"], win: ["Ctrl","R"] },
+  { cat: "Edit", name: "Find / replace", desc: "Cari layer atau teks", mac: ["⌘","F"], win: ["Ctrl","F"] },
+  { cat: "Edit", name: "Copy properties", desc: "Salin style/properties elemen", mac: ["⌘","⌥","C"], win: ["Ctrl","Alt","C"] },
+  { cat: "Edit", name: "Paste properties", desc: "Tempel style ke elemen lain", mac: ["⌘","⌥","V"], win: ["Ctrl","Alt","V"] },
+
+  { cat: "View", name: "Zoom in", desc: "Perbesar tampilan canvas", mac: ["⌘","+"], win: ["Ctrl","+"] },
+  { cat: "View", name: "Zoom out", desc: "Perkecil tampilan canvas", mac: ["⌘","-"], win: ["Ctrl","-"] },
+  { cat: "View", name: "Zoom to 100%", desc: "Tampilkan ukuran asli 1:1", mac: ["⌘","0"], win: ["Ctrl","0"] },
+  { cat: "View", name: "Zoom to fit", desc: "Fit semua objek ke layar", mac: ["⇧","1"], win: ["Shift","1"] },
+  { cat: "View", name: "Zoom to selection", desc: "Zoom ke elemen yang dipilih", mac: ["⇧","2"], win: ["Shift","2"] },
+  { cat: "View", name: "Zoom to frame", desc: "Zoom ke frame yang dipilih", mac: ["⇧","3"], win: ["Shift","3"] },
+  { cat: "View", name: "Toggle rulers", desc: "Tampil/sembunyikan ruler", mac: ["⌘","⇧","R"], win: ["Ctrl","Shift","R"] },
+  { cat: "View", name: "Toggle grid", desc: "Tampil/sembunyikan layout grid", mac: ["⌘","⇧","4"], win: ["Ctrl","Shift","4"] },
+  { cat: "View", name: "Toggle pixel grid", desc: "Tampilkan pixel grid detail", mac: ["⌘","'"], win: ["Ctrl","'"] },
+  { cat: "View", name: "Pixel preview", desc: "Preview tampilan pixel rendering", mac: ["⌘","⇧","P"], win: ["Ctrl","Shift","P"] },
+  { cat: "View", name: "Collapse layers", desc: "Lipat semua layer di panel", mac: ["⌥","L"], win: ["Alt","L"] },
+  { cat: "View", name: "Toggle panels", desc: "Sembunyikan semua panel UI", mac: ["⌘","\\"], win: ["Ctrl","\\"] },
+  { cat: "View", name: "Fullscreen", desc: "Masuk mode fullscreen", mac: ["⌘","⌃","F"], win: ["Ctrl","Alt","F"] },
+
+  { cat: "Arrange", name: "Group selection", desc: "Kelompokkan elemen terpilih", mac: ["⌘","G"], win: ["Ctrl","G"] },
+  { cat: "Arrange", name: "Ungroup", desc: "Pisahkan group", mac: ["⌘","⇧","G"], win: ["Ctrl","Shift","G"] },
+  { cat: "Arrange", name: "Frame selection", desc: "Bungkus elemen jadi frame", mac: ["⌘","⌥","G"], win: ["Ctrl","Alt","G"] },
+  { cat: "Arrange", name: "Bring to front", desc: "Pindahkan ke layer paling atas", mac: ["⌘","⌥","]"], win: ["Ctrl","Alt","]"] },
+  { cat: "Arrange", name: "Bring forward", desc: "Naikkan satu layer ke atas", mac: ["⌘","]"], win: ["Ctrl","]"] },
+  { cat: "Arrange", name: "Send backward", desc: "Turunkan satu layer ke bawah", mac: ["⌘","["], win: ["Ctrl","["] },
+  { cat: "Arrange", name: "Send to back", desc: "Pindahkan ke layer paling bawah", mac: ["⌘","⌥","["], win: ["Ctrl","Alt","["] },
+  { cat: "Arrange", name: "Flip horizontal", desc: "Cerminkan secara horizontal", mac: ["⇧","H"], win: ["Shift","H"] },
+  { cat: "Arrange", name: "Flip vertical", desc: "Cerminkan secara vertikal", mac: ["⇧","V"], win: ["Shift","V"] },
+  { cat: "Arrange", name: "Auto layout", desc: "Tambah/aktifkan auto layout", mac: ["⇧","A"], win: ["Shift","A"] },
+  { cat: "Arrange", name: "Remove auto layout", desc: "Hapus auto layout dari frame", mac: ["⌥","⇧","A"], win: ["Alt","Shift","A"] },
+  { cat: "Arrange", name: "Lock / unlock", desc: "Kunci atau buka kunci layer", mac: ["⌘","⇧","L"], win: ["Ctrl","Shift","L"] },
+  { cat: "Arrange", name: "Show / hide", desc: "Tampilkan atau sembunyikan layer", mac: ["⌘","⇧","H"], win: ["Ctrl","Shift","H"] },
+  { cat: "Arrange", name: "Align left", desc: "Rata kiri elemen terpilih", mac: ["⌥","A"], win: ["Alt","A"] },
+  { cat: "Arrange", name: "Align right", desc: "Rata kanan elemen terpilih", mac: ["⌥","D"], win: ["Alt","D"] },
+  { cat: "Arrange", name: "Align top", desc: "Rata atas elemen terpilih", mac: ["⌥","W"], win: ["Alt","W"] },
+  { cat: "Arrange", name: "Align bottom", desc: "Rata bawah elemen terpilih", mac: ["⌥","S"], win: ["Alt","S"] },
+  { cat: "Arrange", name: "Align center horizontal", desc: "Rata tengah secara horizontal", mac: ["⌥","H"], win: ["Alt","H"] },
+  { cat: "Arrange", name: "Align center vertical", desc: "Rata tengah secara vertikal", mac: ["⌥","V"], win: ["Alt","V"] },
+
+  { cat: "Components", name: "Create component", desc: "Buat master component dari elemen", mac: ["⌘","⌥","K"], win: ["Ctrl","Alt","K"] },
+  { cat: "Components", name: "Detach instance", desc: "Lepaskan instance dari master", mac: ["⌘","⌥","B"], win: ["Ctrl","Alt","B"] },
+  { cat: "Components", name: "Swap component", desc: "Ganti instance dengan component lain", mac: ["⌥","drag"], win: ["Alt","drag"] },
+  { cat: "Components", name: "Go to main component", desc: "Loncat ke master component", mac: ["⌥","⌘","↩"], win: ["Alt","Ctrl","Enter"] },
+
+  { cat: "Text", name: "Bold", desc: "Tebalkan teks", mac: ["⌘","B"], win: ["Ctrl","B"] },
+  { cat: "Text", name: "Italic", desc: "Miringkan teks", mac: ["⌘","I"], win: ["Ctrl","I"] },
+  { cat: "Text", name: "Underline", desc: "Garis bawah teks", mac: ["⌘","U"], win: ["Ctrl","U"] },
+  { cat: "Text", name: "Align left", desc: "Rata kiri teks", mac: ["⌘","⌥","L"], win: ["Ctrl","Alt","L"] },
+  { cat: "Text", name: "Align center", desc: "Rata tengah teks", mac: ["⌘","⌥","T"], win: ["Ctrl","Alt","T"] },
+  { cat: "Text", name: "Align right", desc: "Rata kanan teks", mac: ["⌘","⌥","R"], win: ["Ctrl","Alt","R"] },
+  { cat: "Text", name: "Increase font size", desc: "Besarkan ukuran font +1", mac: ["⌘","⇧","."], win: ["Ctrl","Shift","."] },
+  { cat: "Text", name: "Decrease font size", desc: "Kecilkan ukuran font -1", mac: ["⌘","⇧",","], win: ["Ctrl","Shift",","] },
+
+  { cat: "Misc", name: "Measure distance", desc: "Tampilkan jarak ke elemen lain", mac: ["⌥","(hover)"], win: ["Alt","(hover)"] },
+  { cat: "Misc", name: "Deep select", desc: "Pilih langsung elemen di dalam group", mac: ["⌘","click"], win: ["Ctrl","click"] },
+  { cat: "Misc", name: "Select parent frame", desc: "Naik ke layer frame induk", mac: ["Esc"], win: ["Esc"] },
+  { cat: "Misc", name: "Multi-select", desc: "Tambah elemen ke seleksi", mac: ["⇧","click"], win: ["Shift","click"] },
+  { cat: "Misc", name: "Nudge 1px", desc: "Geser elemen 1px dengan arrow key", mac: ["↑↓←→"], win: ["↑↓←→"] },
+  { cat: "Misc", name: "Nudge 10px", desc: "Geser elemen 10px (big nudge)", mac: ["⇧","↑↓←→"], win: ["Shift","↑↓←→"] },
+  { cat: "Misc", name: "Resize from center", desc: "Resize dari titik tengah", mac: ["⌥","drag"], win: ["Alt","drag"] },
+  { cat: "Misc", name: "Constrain proportions", desc: "Resize proporsional saat drag", mac: ["⇧","drag"], win: ["Shift","drag"] },
+  { cat: "Misc", name: "Quick actions", desc: "Buka command palette Figma", mac: ["⌘","⌥","K"], win: ["Ctrl","Alt","K"] },
+  { cat: "Misc", name: "Presentation mode", desc: "Tampilkan prototype sebagai presentasi", mac: ["⌘","⌥","↩"], win: ["Ctrl","Alt","Enter"] },
+  { cat: "Misc", name: "Export selected", desc: "Export elemen yang dipilih", mac: ["⌘","⇧","E"], win: ["Ctrl","Shift","E"] },
+];
+
+const cats = ["All", ...new Set(data.map(d => d.cat))];
+let os = "mac";
+let activeTab = "All";
+
+function setOs(o, btn) {
+  os = o;
+  document.querySelectorAll(".os-toggle button").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  render();
+}
+
+function setTab(t) {
+  activeTab = t;
+  document.querySelectorAll(".tab").forEach(b => {
+    b.classList.toggle("active", b.dataset.cat === t);
+  });
+  render();
+}
+
+function render() {
+  const q = document.getElementById("search").value.toLowerCase();
+  let filtered = data.filter(d => {
+    const matchCat = activeTab === "All" || d.cat === activeTab;
+    const matchQ = !q || d.name.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+
+  document.getElementById("count").textContent = filtered.length + " shortcut ditemukan";
+
+  const grid = document.getElementById("grid");
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="empty">Tidak ada shortcut yang cocok.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(d => {
+    const keys = os === "mac" ? d.mac : d.win;
+    const kbds = keys.map(k => `<kbd>${k}</kbd>`).join('<span class="sep">+</span>');
+    const icon = catIcons[d.cat] || "⌘";
+    return `<div class="card">
+      <div class="card-icon">${icon}</div>
+      <div class="card-info">
+        <div class="card-name">${d.name}</div>
+        <div class="card-desc">${d.desc}</div>
+      </div>
+      <div class="keys">${kbds}</div>
+    </div>`;
+  }).join("");
+}
+
+const tabsEl = document.getElementById("tabs");
+cats.forEach(c => {
+  const btn = document.createElement("button");
+  btn.className = "tab" + (c === "All" ? " active" : "");
+  btn.dataset.cat = c;
+  btn.textContent = c;
+  btn.onclick = () => setTab(c);
+  tabsEl.appendChild(btn);
+});
+
+render();
+</script>
+</body>
+</html>
